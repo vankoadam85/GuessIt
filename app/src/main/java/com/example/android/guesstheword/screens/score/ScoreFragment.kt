@@ -55,6 +55,8 @@ class ScoreFragment : Fragment() {
         viewModel = ViewModelProvider(this, ScoreViewModelFactory(scoreFragmentArgs.score))
                 .get(ScoreViewModel::class.java)
 
+        binding.viewModel = viewModel
+
         viewModel.finalScore.observe(viewLifecycleOwner, Observer {
             binding.scoreText.text = it.toString()
         })
