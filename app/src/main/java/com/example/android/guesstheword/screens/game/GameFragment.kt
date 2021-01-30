@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
@@ -42,8 +43,10 @@ class GameFragment : Fragment() {
 
     private lateinit var binding: GameFragmentBinding
 
+    private lateinit var viewModel: GameViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
@@ -52,6 +55,8 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
+
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
         resetList()
         nextWord()
