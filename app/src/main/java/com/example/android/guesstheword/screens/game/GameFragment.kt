@@ -34,15 +34,13 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
  */
 class GameFragment : Fragment() {
 
-    private lateinit var binding: GameFragmentBinding
-
     private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
         // Inflate view and obtain an instance of the binding class
-        binding = DataBindingUtil.inflate(
+        val binding: GameFragmentBinding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.game_fragment,
                 container,
@@ -52,13 +50,8 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
-        viewModel.score.observe(viewLifecycleOwner, Observer {
-            binding.scoreText.text = it.toString()
-        })
-        viewModel.word.observe(viewLifecycleOwner, Observer {
-            binding.wordText.text = it
-        })
         viewModel.gameTime.observe(viewLifecycleOwner, Observer {
             binding.timerText.text = DateUtils.formatElapsedTime(it / GameViewModel.ONE_SECOND)
         })
